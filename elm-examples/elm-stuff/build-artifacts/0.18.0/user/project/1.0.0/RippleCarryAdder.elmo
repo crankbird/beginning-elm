@@ -1,0 +1,89 @@
+var _user$project$RippleCarryAdder$stringToInt = function (string) {
+	return A2(
+		_elm_lang$core$Result$withDefault,
+		-1,
+		_elm_lang$core$String$toInt(string));
+};
+var _user$project$RippleCarryAdder$arrayToTuple = function (array) {
+	var fourthElement = A2(
+		_elm_lang$core$Maybe$withDefault,
+		-1,
+		A2(_elm_lang$core$Array$get, 3, array));
+	var thirdElement = A2(
+		_elm_lang$core$Maybe$withDefault,
+		-1,
+		A2(_elm_lang$core$Array$get, 2, array));
+	var secondElement = A2(
+		_elm_lang$core$Maybe$withDefault,
+		-1,
+		A2(_elm_lang$core$Array$get, 1, array));
+	var firstElement = A2(
+		_elm_lang$core$Maybe$withDefault,
+		-1,
+		A2(_elm_lang$core$Array$get, 0, array));
+	return {ctor: '_Tuple4', _0: firstElement, _1: secondElement, _2: thirdElement, _3: fourthElement};
+};
+var _user$project$RippleCarryAdder$extractDigits = function (number) {
+	return _user$project$RippleCarryAdder$arrayToTuple(
+		_elm_lang$core$Array$fromList(
+			A2(
+				_elm_lang$core$List$map,
+				_user$project$RippleCarryAdder$stringToInt,
+				A2(
+					_elm_lang$core$String$split,
+					'',
+					_elm_lang$core$Basics$toString(number)))));
+};
+var _user$project$RippleCarryAdder$inverter = function (a) {
+	var _p0 = a;
+	switch (_p0) {
+		case 1:
+			return 0;
+		case 0:
+			return 1;
+		default:
+			return -1;
+	}
+};
+var _user$project$RippleCarryAdder$orGate = F2(
+	function (a, b) {
+		return a | b;
+	});
+var _user$project$RippleCarryAdder$andGate = F2(
+	function (a, b) {
+		return a & b;
+	});
+var _user$project$RippleCarryAdder$halfAdder = F2(
+	function (a, b) {
+		var carryOut = A2(_user$project$RippleCarryAdder$andGate, a, b);
+		var e = _user$project$RippleCarryAdder$inverter(
+			A2(_user$project$RippleCarryAdder$andGate, a, b));
+		var d = A2(_user$project$RippleCarryAdder$orGate, a, b);
+		var sumDigit = A2(_user$project$RippleCarryAdder$andGate, d, e);
+		return {carry: carryOut, sum: sumDigit};
+	});
+var _user$project$RippleCarryAdder$fullAdder = F3(
+	function (a, b, carryIn) {
+		var firstResult = A2(_user$project$RippleCarryAdder$halfAdder, b, carryIn);
+		var secondResult = A2(_user$project$RippleCarryAdder$halfAdder, a, firstResult.sum);
+		var finalCarry = A2(_user$project$RippleCarryAdder$orGate, firstResult.carry, secondResult.carry);
+		return {carry: finalCarry, sum: secondResult.sum};
+	});
+var _user$project$RippleCarryAdder$rippleCarryAdder = F3(
+	function (a, b, carryIn) {
+		var _p1 = _user$project$RippleCarryAdder$extractDigits(b);
+		var b3 = _p1._0;
+		var b2 = _p1._1;
+		var b1 = _p1._2;
+		var b0 = _p1._3;
+		var _p2 = _user$project$RippleCarryAdder$extractDigits(a);
+		var a3 = _p2._0;
+		var a2 = _p2._1;
+		var a1 = _p2._2;
+		var a0 = _p2._3;
+		var firstResult = A3(_user$project$RippleCarryAdder$fullAdder, a0, b0, carryIn);
+		var secondResult = A3(_user$project$RippleCarryAdder$fullAdder, a1, b1, firstResult.carry);
+		var thirdResult = A3(_user$project$RippleCarryAdder$fullAdder, a2, b2, secondResult.carry);
+		var finalResult = A3(_user$project$RippleCarryAdder$fullAdder, a3, b3, thirdResult.carry);
+		return {carry: finalResult.carry, sum3: finalResult.sum, sum2: thirdResult.sum, sum1: secondResult.sum, sum0: firstResult.sum};
+	});

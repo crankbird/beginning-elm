@@ -1,0 +1,33 @@
+var _user$project$Playground$multiplyByFive = function (number) {
+	var multiplier = 5;
+	return number * multiplier;
+};
+var _user$project$Playground$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProgram(
+	_elm_lang$html$Html$text(
+		_elm_lang$core$Basics$toString(
+			_user$project$Playground$multiplyByFive(3))));
+var _user$project$Playground$revelation = '\n    It became very clear to me sitting out there today\n    that every decision I\'ve made in my entire life has\n    been wrong. My life is the complete \"opposite\" of\n    everything I want it to be. Every instinct I have,\n    in every aspect of life, be it something to wear,\n    something to eat - it\'s all been wrong.\n    ';
+var _user$project$Playground$divide = F2(
+	function (e, f) {
+		return e / f;
+	});
+var _user$project$Playground$multiply = F2(
+	function (c, d) {
+		return c * d;
+	});
+var _user$project$Playground$add = F2(
+	function (a, b) {
+		return a + b;
+	});
+var _user$project$Playground$time = F2(
+	function (startTime, endTime) {
+		return endTime - startTime;
+	});
+var _user$project$Playground$speed = F2(
+	function (distance, time) {
+		return distance / time;
+	});
+var _user$project$Playground$escapeEarth = F2(
+	function (velocity, speed) {
+		return (_elm_lang$core$Native_Utils.cmp(velocity, 11.186) > 0) ? 'Godspeed' : (_elm_lang$core$Native_Utils.eq(speed, 7.67) ? 'Stay in orbit' : 'Come back');
+	});

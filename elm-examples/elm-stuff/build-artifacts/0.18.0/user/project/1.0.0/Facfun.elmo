@@ -1,0 +1,10 @@
+var _user$project$Facfun$fib = function (n) {
+	return _elm_lang$core$Native_Utils.eq(n, 0) ? 1 : (_elm_lang$core$Native_Utils.eq(n, 1) ? 1 : (_user$project$Facfun$fib(n - 1) + n));
+};
+var _user$project$Facfun$sumfun = F2(
+	function (i, n) {
+		return _elm_lang$core$Native_Utils.eq(i, n) ? n : (i + A2(_user$project$Facfun$sumfun, i + 1, n));
+	});
+var _user$project$Facfun$facfun = function (n) {
+	return _elm_lang$core$Native_Utils.eq(n, 0) ? 1 : (n * _user$project$Facfun$facfun(n - 1));
+};
