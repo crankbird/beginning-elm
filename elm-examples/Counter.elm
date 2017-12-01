@@ -18,6 +18,7 @@ initialModel =
     0
 
 
+main : Program Never Model Msg
 main =
     beginnerProgram
         { model = initialModel
