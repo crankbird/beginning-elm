@@ -2,6 +2,8 @@ module Signup exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import SignupStyle exposing (..)
+import Html.Events exposing (onInput, onClick)
 
 
 type alias User =
@@ -21,71 +23,76 @@ initialModel =
     }
 
 
-view : User -> Html msg
+type Msg
+    = SaveName String
+    | SaveEmail String
+    | SavePassword String
+    | Signup
+
+
+update : Msg -> User -> User
+update message user =
+    case message of
+        SaveName name ->
+            { user | name = name }
+
+        SaveEmail email ->
+            { user | email = email }
+
+        SavePassword password ->
+            { user | password = password }
+
+        Signup ->
+            { user | loggedIn = True }
+
+
 view user =
-    div [ class "container" ]
-        [ div [ class "row" ]
-            [ div [ class "col-md-6 col-md-offset-3" ]
-                [ h1 [ class "text-center" ] [ text "Sign up" ]
-                , Html.form []
-                    [ div [ class "form-group" ]
-                        [ label
-                            [ class "control-label"
-                            , for "name"
-                            ]
-                            [ text "Name" ]
-                        , input
-                            [ class "form-control"
-                            , id "name"
-                            , type_ "text"
-                            ]
-                            []
-                        ]
-                    , div [ class "form-group" ]
-                        [ label
-                            [ class "control-label"
-                            , for "email"
-                            ]
-                            [ text "Email" ]
-                        , input
-                            [ class "form-control"
-                            , id "email"
-                            , type_ "email"
-                            ]
-                            []
-                        ]
-                    , div [ class "form-group" ]
-                        [ label
-                            [ class "control-label"
-                            , for "password"
-                            ]
-                            [ text "Password" ]
-                        , input
-                            [ class "form-control"
-                            , id "password"
-                            , type_ "password"
-                            ]
-                            []
-                        ]
-                    , div [ class "text-center" ]
-                        [ button
-                            [ class "btn btn-lg btn-primary"
-                            , type_ "submit"
-                            ]
-                            [ text "Create my account" ]
-                        ]
+    div []
+        [ h1 [ headerStyle ] [ text "Sign up" ]
+        , Html.form [ formStyle ]
+            [ div []
+                [ text "Name"
+                , input
+                    [ id "name"
+                    , type_ "text"
+                    , inputTextStyle
+                    , onInput SaveName
                     ]
+                    []
+                ]
+            , div []
+                [ text "Email"
+                , input
+                    [ id "email"
+                    , type_ "email"
+                    , inputTextStyle
+                    , onInput SaveEmail
+                    ]
+                    []
+                ]
+            , div []
+                [ text "Password"
+                , input
+                    [ id "password"
+                    , type_ "password"
+                    , inputTextStyle
+                    , onInput SavePassword
+                    ]
+                    []
+                ]
+            , div []
+                [ button
+                    [ type_ "submit"
+                    , buttonStyle
+                    , onClick Signup
+                    ]
+                    [ text "Create my account" ]
                 ]
             ]
         ]
 
 
-update : msg -> User -> User
-update msg model =
-    initialModel
-
-
-main : Program Never User msg
+main : Program Never User Msg
 main =
     beginnerProgram
         { model = initialModel
