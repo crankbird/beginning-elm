@@ -2,7 +2,6 @@ module Signup exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import SignupStyles exposing (..)
 
 
 type alias User =
@@ -25,14 +24,13 @@ initialModel =
 view : User -> Html msg
 view user =
     div []
-        [ h1 [ headerStyle ] [ text "Sign up" ]
-        , Html.form [ formStyle ]
+        [ h1 [] [ text "Sign up" ]
+        , Html.form []
             [ div []
                 [ text "Name"
                 , input
                     [ id "name"
                     , type_ "text"
-                    , inputTextStyle
                     ]
                     []
                 ]
@@ -41,7 +39,6 @@ view user =
                 , input
                     [ id "email"
                     , type_ "email"
-                    , inputTextStyle
                     ]
                     []
                 ]
@@ -50,15 +47,12 @@ view user =
                 , input
                     [ id "password"
                     , type_ "password"
-                    , inputTextStyle
                     ]
                     []
                 ]
             , div []
                 [ button
-                    [ type_ "submit"
-                    , buttonStyle
-                    ]
+                    [ type_ "submit" ]
                     [ text "Create my account" ]
                 ]
             ]
